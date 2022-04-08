@@ -1,0 +1,61 @@
+CREATE DATABASE SistemaCorretor
+GO
+
+USE SistemaCorretor
+
+CREATE TABLE Corretor
+(
+    Codigo INT NOT NULL,
+    Nome NVARCHAR(120) NOT NULL,
+    CPF NVARCHAR(11) NOT NULL
+
+    CONSTRAINT PK_Corretor PRIMARY KEY (Codigo)
+);
+GO
+
+CREATE TABLE UF
+(
+    Id INT NOT NULL,
+    Nome NVARCHAR(30) NOT NULL,
+
+    CONSTRAINT PK_UF PRIMARY KEY (Id)
+);
+GO
+DROP TABLE Cidade
+CREATE TABLE Cidade
+(
+    Id INT NOT NULL,
+    IdUF INT NOT NULL,
+    Nome NVARCHAR(60) NOT NULL,
+
+    CONSTRAINT PK_Cidade PRIMARY KEY (Id),
+    CONSTRAINT FK_Cidade_UF_IdUF FOREIGN KEY (IdUF) REFERENCES UF (Id)
+);
+GO
+
+CREATE TABLE Cliente
+(
+    Id INT NOT NULL,
+    Nome NVARCHAR(120) NOT NULL,
+    CPF NVARCHAR(11) NOT NULL,
+    Endereco NVARCHAR(160) NOT NULL,
+    UF INT NOT NULL,
+    Cidade INT NOT NULL,
+    Ativo BIT NULL,
+
+    CONSTRAINT PK_Cliente PRIMARY KEY (Id),
+    CONSTRAINT FK_Cliente_UF_Id FOREIGN KEY (UF) REFERENCES UF (Id),
+    CONSTRAINT FK_Cliente_Cidade_Id FOREIGN KEY (Cidade) REFERENCES Cidade (Id)
+);
+GO
+
+CREATE TABLE ClienteCorretor
+(
+    IdCorretor INT NOT NULL,
+    IdCliente INT NOT NULL,
+
+    CONSTRAINT FK_ClienteCorretor_Corretor_Id FOREIGN KEY (IdCorretor) REFERENCES Corretor (Codigo),
+    CONSTRAINT FK_ClienteCorretor_Cliente_Id FOREIGN KEY (IdCliente) REFERENCES Cliente (Id)
+);
+GO
+
