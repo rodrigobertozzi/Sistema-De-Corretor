@@ -115,7 +115,9 @@ Begin VB.Form ConsultasClientes
             Strikethrough   =   0   'False
          EndProperty
          Height          =   420
+         ItemData        =   "ConsultasClientes.frx":0000
          Left            =   8400
+         List            =   "ConsultasClientes.frx":0002
          TabIndex        =   12
          Top             =   600
          Width           =   2535
@@ -327,18 +329,43 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
+Private Sub Cmb_Cidade_GotFocus()
+    Set rsCidade = New ADODB.Recordset
+     rsCidade.Open "Select C.Nome FROM Cidade C INNER JOIN UF U ON C.IdUF = U.Id WHERE U.Nome = '" & Cmb_UF.Text & "' ", cn, adOpenStatic, adLockOptimistic
+     Cmb_Cidade.Clear
+     With rsCidade
+         Do While Not .EOF
+             Cmb_Cidade.AddItem ![Nome]
+             .MoveNext
+         Loop
+     .Close
+     End With
+End Sub
+
+Private Sub Cmb_UF_GotFocus()
+    Set rsEstado = New ADODB.Recordset
+    rsEstado.Open "Select Nome FROM UF", cn, adOpenStatic, adLockOptimistic
+    Cmb_UF.Clear
+    With rsEstado
+        Do While Not .EOF
+            Cmb_UF.AddItem ![Nome]
+            .MoveNext
+        Loop
+    .Close
+    End With
+End Sub
+
+Private Sub Form_Load()
+    ModuleConnection.User_Connection
+End Sub
 Private Sub Cmd_Pesquisar_Click()
-    Dim cn As New ADODB.Connection
-    cn.Provider = "SQLOLEDB"
-    cn.Properties("Data Source").Value = "localhost,1433"
-    cn.Properties("Initial Catalog").Value = "SistemaCorretor"
-    cn.Properties("User ID").Value = "sa"
-    cn.Properties("Password").Value = "1q2w3e4r@#$"
-    cn.Open
+    
     Set rs = New ADODB.Recordset
     Dim SQL As String
-    SQL = "SELECT * FROM Cliente"
-    rs.Open "SELECT * FROM Cliente", cn, adOpenStatic, adLockOptimistic
+    SQL = "SELECT C.Nome, C.CPF, C.Ativo, Cor.Nome, Cor.Codigo, C.UF, C.Cidade FROM Cliente C "
+    SQL = SQL + "INNER JOIN ClienteCorretor CC ON C.Id = CC.IdCliente "
+    SQL = SQL + "INNER JOIN Corretor Cor ON Cor.Codigo = CC.IdCorretor "
+    rs.Open SQL, cn, adOpenStatic, adLockOptimistic
     Set MSHFlexGrid1.DataSource = rs
     
     

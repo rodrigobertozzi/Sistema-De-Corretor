@@ -120,7 +120,7 @@ Begin VB.Form CadastroCliente
          Top             =   3120
          Width           =   2535
       End
-      Begin VB.TextBox Text1 
+      Begin VB.TextBox Txt_Endereco 
          BeginProperty Font 
             Name            =   "MS Sans Serif"
             Size            =   15
@@ -263,10 +263,56 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
-Private Sub Label1_Click()
-
+Private Sub Cmb_Cidade_GotFocus()
+    Set rsCidade = New ADODB.Recordset
+     rsCidade.Open "Select C.Nome FROM Cidade C INNER JOIN UF U ON C.IdUF = U.Id WHERE U.Nome = '" & Cmb_UF.Text & "' ", cn, adOpenStatic, adLockOptimistic
+     Cmb_Cidade.Clear
+     With rsCidade
+         Do While Not .EOF
+             Cmb_Cidade.AddItem ![Nome]
+             .MoveNext
+         Loop
+     .Close
+     End With
 End Sub
 
-Private Sub Text2_Change()
+Private Sub Cmb_UF_GotFocus()
+    Set rsEstado = New ADODB.Recordset
+    rsEstado.Open "Select Nome FROM UF", cn, adOpenStatic, adLockOptimistic
+    Cmb_UF.Clear
+    With rsEstado
+        Do While Not .EOF
+            Cmb_UF.AddItem ![Nome]
+            .MoveNext
+        Loop
+    .Close
+    End With
+End Sub
 
+Private Sub Cmd_SalvarCliente_Click()
+    If Txt_Cliente = "" Then
+        MsgBox "É necessário ter um nome", vbCritical
+        Exit Sub
+    End If
+    If Cmb_Corretor = "" Then
+        MsgBox "É necessário ter um corretor", vbCritical
+        Exit Sub
+    End If
+    If Msk_CPFCliente = "" Then
+        MsgBox "É necessário ter um CPF", vbCritical
+        Exit Sub
+    End If
+    If Txt_Endereco = "" Then
+        MsgBox "É necessário ter um endereço", vbCritical
+        Exit Sub
+    End If
+    If Cmb_UF = "" Then
+        MsgBox "É necessário ter um estado(UF)", vbCritical
+        Exit Sub
+    End If
+    If Cmb_Cidade = "" Then
+        MsgBox "É necessário ter uma cidade", vbCritical
+        Exit Sub
+    End If
+    
 End Sub

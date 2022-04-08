@@ -167,3 +167,17 @@ Private Sub Label1_Click()
 
 End Sub
 
+Private Sub Cmd_Salvar_Click()
+    If Txt_CodigoCorretor = "" Then
+        MsgBox "É necessário ter um código do corretor", vbCritical
+        Exit Sub
+    End If
+    If Txt_NomeCorretor = "" Then
+        MsgBox "É necessário ter um nome", vbCritical
+        Exit Sub
+    End If
+    If Msk_CPFCorretor = "" Then
+        MsgBox "É necessário ter um CPF", vbCritical
+        Exit Sub
+    End If
+End Sub
