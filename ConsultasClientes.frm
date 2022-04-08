@@ -7,6 +7,7 @@ Begin VB.Form ConsultasClientes
    ClientLeft      =   60
    ClientTop       =   405
    ClientWidth     =   12990
+   ForeColor       =   &H0000FF00&
    LinkTopic       =   "Form1"
    ScaleHeight     =   6915
    ScaleWidth      =   12990
@@ -326,15 +327,21 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
-Private Sub Activate()
-    Public cn As New ADODB.Connection
+Private Sub Cmd_Pesquisar_Click()
+    Dim cn As New ADODB.Connection
     cn.Provider = "SQLOLEDB"
-    cn.Properties("Data Source").Value = "Docker-Localhost"
+    cn.Properties("Data Source").Value = "localhost,1433"
     cn.Properties("Initial Catalog").Value = "SistemaCorretor"
     cn.Properties("User ID").Value = "sa"
     cn.Properties("Password").Value = "1q2w3e4r@#$"
-
     cn.Open
+    Set rs = New ADODB.Recordset
+    Dim SQL As String
+    SQL = "SELECT * FROM Cliente"
+    rs.Open "SELECT * FROM Cliente", cn, adOpenStatic, adLockOptimistic
+    Set MSHFlexGrid1.DataSource = rs
+    
+    
 End Sub
 
 Private Sub Cmd_CadastrarCliente_Click()
