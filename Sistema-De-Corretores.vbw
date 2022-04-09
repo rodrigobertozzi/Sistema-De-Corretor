@@ -1,4 +1,4 @@
-CadastroCorretor = 52, 52, 939, 494, Z, 26, 26, 905, 460, C
+CadastroCorretor = 52, 52, 939, 494, , 26, 26, 905, 460, C
 CadastroCliente = 104, 104, 991, 546, , 78, 78, 965, 520, C
 ConsultasClientes = 130, 130, 1017, 572, , 130, 70, 1017, 512, C
-ModuleConnection = 208, 208, 1018, 650, 
+ModuleConnection = 208, 208, 1018, 650, Z

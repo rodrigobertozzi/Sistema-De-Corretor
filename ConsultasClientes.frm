@@ -15,17 +15,34 @@ Begin VB.Form ConsultasClientes
    Begin VB.Frame Frm_ClientesSalvos 
       Height          =   3855
       Left            =   0
-      TabIndex        =   17
+      TabIndex        =   18
       Top             =   3000
       Width           =   12975
+      Begin VB.CommandButton Btn_DeletarRegistro 
+         Caption         =   "Deletar Registro"
+         BeginProperty Font 
+            Name            =   "MS Sans Serif"
+            Size            =   12
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   375
+         Left            =   4680
+         TabIndex        =   20
+         Top             =   3360
+         Width           =   3015
+      End
       Begin MSHierarchicalFlexGridLib.MSHFlexGrid MSHFlexGrid1 
-         Height          =   3615
+         Height          =   3255
          Left            =   0
-         TabIndex        =   18
+         TabIndex        =   19
          Top             =   120
          Width           =   12855
          _ExtentX        =   22675
-         _ExtentY        =   6376
+         _ExtentY        =   5741
          _Version        =   393216
          _NumberOfBands  =   1
          _Band(0).Cols   =   2
@@ -50,7 +67,7 @@ Begin VB.Form ConsultasClientes
          EndProperty
          Height          =   375
          Left            =   9720
-         TabIndex        =   16
+         TabIndex        =   17
          Top             =   2280
          Width           =   2415
       End
@@ -67,7 +84,7 @@ Begin VB.Form ConsultasClientes
          EndProperty
          Height          =   375
          Left            =   5040
-         TabIndex        =   15
+         TabIndex        =   16
          Top             =   2280
          Width           =   2415
       End
@@ -84,7 +101,7 @@ Begin VB.Form ConsultasClientes
          EndProperty
          Height          =   375
          Left            =   960
-         TabIndex        =   14
+         TabIndex        =   15
          Top             =   2280
          Width           =   2415
       End
@@ -100,7 +117,7 @@ Begin VB.Form ConsultasClientes
          EndProperty
          Height          =   420
          Left            =   8400
-         TabIndex        =   13
+         TabIndex        =   6
          Top             =   1080
          Width           =   2535
       End
@@ -118,15 +135,16 @@ Begin VB.Form ConsultasClientes
          ItemData        =   "ConsultasClientes.frx":0000
          Left            =   8400
          List            =   "ConsultasClientes.frx":0002
-         TabIndex        =   12
+         TabIndex        =   5
          Top             =   600
          Width           =   2535
       End
       Begin VB.CheckBox Chk_Ativo 
          Height          =   375
          Left            =   8400
-         TabIndex        =   11
+         TabIndex        =   14
          Top             =   120
+         Value           =   1  'Checked
          Width           =   255
       End
       Begin VB.TextBox Txt_NomeCliente 
@@ -142,7 +160,7 @@ Begin VB.Form ConsultasClientes
          Height          =   405
          Left            =   2520
          MaxLength       =   120
-         TabIndex        =   7
+         TabIndex        =   3
          Top             =   1080
          Width           =   4455
       End
@@ -159,31 +177,14 @@ Begin VB.Form ConsultasClientes
          Height          =   405
          Left            =   2520
          MaxLength       =   120
-         TabIndex        =   6
+         TabIndex        =   2
          Top             =   600
          Width           =   4455
-      End
-      Begin VB.TextBox Txt_CodigoCorretor 
-         BeginProperty Font 
-            Name            =   "MS Sans Serif"
-            Size            =   15
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         Height          =   405
-         Left            =   2520
-         MaxLength       =   5
-         TabIndex        =   5
-         Top             =   120
-         Width           =   975
       End
       Begin MSMask.MaskEdBox Msk_CPFCliente 
          Height          =   495
          Left            =   2520
-         TabIndex        =   19
+         TabIndex        =   4
          Top             =   1560
          Width           =   2895
          _ExtentX        =   5106
@@ -203,6 +204,28 @@ Begin VB.Form ConsultasClientes
          Mask            =   "###.###.###-##"
          PromptChar      =   "X"
       End
+      Begin MSMask.MaskEdBox Msk_CodigoCorretor 
+         Height          =   375
+         Left            =   2520
+         TabIndex        =   1
+         Top             =   120
+         Width           =   975
+         _ExtentX        =   1720
+         _ExtentY        =   661
+         _Version        =   393216
+         MaxLength       =   5
+         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+            Name            =   "MS Sans Serif"
+            Size            =   15
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Mask            =   "#####"
+         PromptChar      =   "_"
+      End
       Begin VB.Label Lbl_Cidade 
          Caption         =   "Cidade:"
          BeginProperty Font 
@@ -216,7 +239,7 @@ Begin VB.Form ConsultasClientes
          EndProperty
          Height          =   375
          Left            =   7200
-         TabIndex        =   10
+         TabIndex        =   13
          Top             =   1080
          Width           =   1215
       End
@@ -233,7 +256,7 @@ Begin VB.Form ConsultasClientes
          EndProperty
          Height          =   375
          Left            =   7200
-         TabIndex        =   9
+         TabIndex        =   12
          Top             =   600
          Width           =   1215
       End
@@ -250,7 +273,7 @@ Begin VB.Form ConsultasClientes
          EndProperty
          Height          =   375
          Left            =   7200
-         TabIndex        =   8
+         TabIndex        =   11
          Top             =   120
          Width           =   975
       End
@@ -267,7 +290,7 @@ Begin VB.Form ConsultasClientes
          EndProperty
          Height          =   375
          Left            =   120
-         TabIndex        =   4
+         TabIndex        =   10
          Top             =   1560
          Width           =   2415
       End
@@ -284,7 +307,7 @@ Begin VB.Form ConsultasClientes
          EndProperty
          Height          =   375
          Left            =   120
-         TabIndex        =   3
+         TabIndex        =   9
          Top             =   1080
          Width           =   2415
       End
@@ -301,7 +324,7 @@ Begin VB.Form ConsultasClientes
          EndProperty
          Height          =   375
          Left            =   120
-         TabIndex        =   2
+         TabIndex        =   8
          Top             =   600
          Width           =   2415
       End
@@ -318,7 +341,7 @@ Begin VB.Form ConsultasClientes
          EndProperty
          Height          =   375
          Left            =   120
-         TabIndex        =   1
+         TabIndex        =   7
          Top             =   120
          Width           =   2415
       End
@@ -359,16 +382,14 @@ Private Sub Form_Load()
     ModuleConnection.User_Connection
 End Sub
 Private Sub Cmd_Pesquisar_Click()
-    
     Set rs = New ADODB.Recordset
     Dim SQL As String
-    SQL = "SELECT C.Nome, C.CPF, C.Ativo, Cor.Nome, Cor.Codigo, C.UF, C.Cidade FROM Cliente C "
-    SQL = SQL + "INNER JOIN ClienteCorretor CC ON C.Id = CC.IdCliente "
-    SQL = SQL + "INNER JOIN Corretor Cor ON Cor.Codigo = CC.IdCorretor "
+    
+    SQL = "SELECT C.Nome As NomeCliente, C.CPF, C.Ativo, Cor.Nome As NomeCorretor, Cor.Codigo, C.UF, C.Cidade FROM Cliente C "
+    SQL = SQL + "INNER JOIN Corretor Cor ON Cor.Nome = C.CorretorCliente "
+    
     rs.Open SQL, cn, adOpenStatic, adLockOptimistic
     Set MSHFlexGrid1.DataSource = rs
-    
-    
 End Sub
 
 Private Sub Cmd_CadastrarCliente_Click()
@@ -381,3 +402,16 @@ Private Sub Cmd_CadastrarCorretor_Click()
     CadastroCorretor.SetFocus
 End Sub
 
+Private Sub Btn_DeletarRegistro_Click()
+    If MSHFlexGrid1 = Empty Then
+        MsgBox "Não há registros para serem excluidos", vbCritical
+        Exit Sub
+    ElseIf MSHFlexGrid1.RowSel = False Then
+        MsgBox "É necessário selecionar um registro", vbCritical
+        Exit Sub
+    ElseIf MSHFlexGrid1.RowSel = MSHFlexGrid1.Rows - MSHFlexGrid1.FixedRows Then
+        MSHFlexGrid1.Rows = MSHFlexGrid1.FixedRows
+    Else
+        MSHFlexGrid1.RemoveItem MSHFlexGrid1.RowSel
+    End If
+End Sub

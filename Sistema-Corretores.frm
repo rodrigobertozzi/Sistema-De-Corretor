@@ -15,6 +15,28 @@ Begin VB.Form CadastroCorretor
       TabIndex        =   0
       Top             =   0
       Width           =   8895
+      Begin MSMask.MaskEdBox Msk_CodigoCorretor 
+         Height          =   375
+         Left            =   3240
+         TabIndex        =   1
+         Top             =   1320
+         Width           =   975
+         _ExtentX        =   1720
+         _ExtentY        =   661
+         _Version        =   393216
+         MaxLength       =   5
+         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+            Name            =   "MS Sans Serif"
+            Size            =   15
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Mask            =   "#####"
+         PromptChar      =   "_"
+      End
       Begin VB.CommandButton Cmd_Salvar 
          Caption         =   "Salvar"
          BeginProperty Font 
@@ -28,26 +50,9 @@ Begin VB.Form CadastroCorretor
          EndProperty
          Height          =   375
          Left            =   3120
-         TabIndex        =   7
+         TabIndex        =   4
          Top             =   2880
          Width           =   2415
-      End
-      Begin VB.TextBox Txt_CodigoCorretor 
-         BeginProperty Font 
-            Name            =   "MS Sans Serif"
-            Size            =   15
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         Height          =   405
-         Left            =   3240
-         MaxLength       =   5
-         TabIndex        =   5
-         Top             =   1320
-         Width           =   975
       End
       Begin VB.TextBox Txt_NomeCorretor 
          BeginProperty Font 
@@ -62,14 +67,14 @@ Begin VB.Form CadastroCorretor
          Height          =   405
          Left            =   3240
          MaxLength       =   120
-         TabIndex        =   3
+         TabIndex        =   2
          Top             =   1800
          Width           =   4455
       End
       Begin MSMask.MaskEdBox Msk_CPFCorretor 
          Height          =   495
          Left            =   3240
-         TabIndex        =   8
+         TabIndex        =   3
          Top             =   2280
          Width           =   2655
          _ExtentX        =   4683
@@ -101,7 +106,7 @@ Begin VB.Form CadastroCorretor
          EndProperty
          Height          =   375
          Left            =   240
-         TabIndex        =   6
+         TabIndex        =   8
          Top             =   2280
          Width           =   2895
       End
@@ -118,7 +123,7 @@ Begin VB.Form CadastroCorretor
          EndProperty
          Height          =   375
          Left            =   240
-         TabIndex        =   4
+         TabIndex        =   7
          Top             =   1320
          Width           =   2895
       End
@@ -135,7 +140,7 @@ Begin VB.Form CadastroCorretor
          EndProperty
          Height          =   375
          Left            =   240
-         TabIndex        =   2
+         TabIndex        =   6
          Top             =   1800
          Width           =   2895
       End
@@ -152,7 +157,7 @@ Begin VB.Form CadastroCorretor
          EndProperty
          Height          =   735
          Left            =   1800
-         TabIndex        =   1
+         TabIndex        =   5
          Top             =   360
          Width           =   6135
       End
@@ -163,12 +168,12 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
-Private Sub Label1_Click()
-
-End Sub
-
 Private Sub Cmd_Salvar_Click()
-    If Txt_CodigoCorretor = "" Then
+    Dim SQL As String
+    Set rs = New ADODB.Recordset
+    Set rsID = New ADODB.Recordset
+    
+    If Msk_CodigoCorretor = "" Then
         MsgBox "É necessário ter um código do corretor", vbCritical
         Exit Sub
     End If
@@ -180,4 +185,10 @@ Private Sub Cmd_Salvar_Click()
         MsgBox "É necessário ter um CPF", vbCritical
         Exit Sub
     End If
+    
+    SQL = "INSERT INTO Corretor(Codigo, Nome, CPF) "
+    SQL = SQL + "VALUES ('" & Msk_CodigoCorretor & "', '" & Txt_NomeCorretor & "', '" & Msk_CPFCorretor & "')"
+    rs.Open SQL, cn, adOpenStatic, adLockOptimistic
+    
+    Unload Me
 End Sub
